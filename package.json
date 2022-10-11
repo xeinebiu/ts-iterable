@@ -1,0 +1,28 @@
+{
+  "name": "@xeinebiu/ts-enumerable",
+  "version": "1.0.0",
+  "description": "Enumerable arrays for Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xeinebiu/ts-enumerable.git"
+  },
+  "keywords": [
+    "enumerable",
+    "array",
+    "javascript",
+    "typescript"
+  ],
+  "author": "xeinebiu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xeinebiu/ts-enumerable/issues"
+  },
+  "homepage": "https://github.com/xeinebiu/ts-enumerable#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
