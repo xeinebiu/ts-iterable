@@ -43,9 +43,10 @@ const mappedValue = toExtendedIterable(data)
 
 The Iterable code would be similar as 
 ````typescript
-for (let i = 2; i < data.length; i++) {
+let skipped = 0;
+for (let i = 0; i < data.length; i++) {
     const element = data[i];
-    if (element > 20) return element.toString();
+    if (element > 20 && ++skipped < 2) return element.toString();
 }
 throw new NoElementError();
 ````
