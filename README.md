@@ -41,6 +41,16 @@ const mappedValue = toExtendedIterable(data)
 // result "50"
 ````
 
+The Iterable code would be similar as 
+````typescript
+let skipped = 0;
+for (let i = 0; i < data.length; i++) {
+    const element = data[i];
+    if (element > 20 && ++skipped < 2) return element.toString();
+}
+throw new NoElementError();
+````
+
 Not only the difference stays that we have written it differently, but also how much data was processed.
 
 On the example without using the ``Iterable``
