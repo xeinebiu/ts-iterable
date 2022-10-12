@@ -1,9 +1,9 @@
-import {toExtendedIterable} from "../src";
+import { toExtendedIterable } from '../src';
 
-describe("map", () => {
+describe('map', () => {
     const createData = () => [1, 2, 3, 4, 5, 6];
 
-    it("should map to string", () => {
+    it('should map to string', () => {
         const data = createData();
         const expectedData = data.map(x => x.toString());
 
@@ -14,7 +14,7 @@ describe("map", () => {
         expect(mappedData).toEqual(expectedData);
     });
 
-    it("should be called only on filtered data", () => {
+    it('should be called only on filtered data', () => {
         const data = createData();
 
         const expectedCalledTime = data.filter(x => x > 2).length;
@@ -32,22 +32,21 @@ describe("map", () => {
         expect(calledTimes).toEqual(expectedCalledTime);
     });
 
-    it("should not be called", () => {
+    it('should not be called', () => {
         const data = createData();
 
         const expectedCalledTimes = 0;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
-            .map(x => {
-                calledTimes++;
-                return x;
-            });
+        toExtendedIterable(data).map(x => {
+            calledTimes++;
+            return x;
+        });
 
         expect(calledTimes).toEqual(expectedCalledTimes);
     });
 
-    it("should be called equal to taken elements", () => {
+    it('should be called equal to taken elements', () => {
         const data = createData();
         const take = 3;
 
@@ -65,7 +64,7 @@ describe("map", () => {
         expect(calledTimes).toEqual(expectedCalledTimes);
     });
 
-    it("should be called equal with less than skipped elements count", () => {
+    it('should be called equal with less than skipped elements count', () => {
         const data = createData();
         const skip = 3;
 
@@ -83,7 +82,7 @@ describe("map", () => {
         expect(calledTimes).toEqual(expectedCalledTimes);
     });
 
-    it("should be called once", () => {
+    it('should be called once', () => {
         const data = createData();
 
         const expectedCalledTimes = 1;
@@ -99,7 +98,7 @@ describe("map", () => {
         expect(calledTimes).toEqual(expectedCalledTimes);
     });
 
-    it("should be called once 2", () => {
+    it('should be called once 2', () => {
         const data = createData();
 
         const expectedCalledTimes = 1;

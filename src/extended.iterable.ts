@@ -1,5 +1,4 @@
 export interface ExtendedIterable<T> extends Iterable<T> {
-
     /**
      * Return `true` if all elements match the [predicate]
      */
@@ -28,7 +27,9 @@ export interface ExtendedIterable<T> extends Iterable<T> {
     /**
      * Map the elements using the [mapper] and avoid inserting `null|undefined` values in the list
      */
-    mapNotNull<K>(mapper: (element: T) => K | undefined | null): ExtendedIterable<K>
+    mapNotNull<K>(
+        mapper: (element: T) => K | undefined | null,
+    ): ExtendedIterable<K>;
 
     /**
      * Return `true` if all the elements do not match the predicate

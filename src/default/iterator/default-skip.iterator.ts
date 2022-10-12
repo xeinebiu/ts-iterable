@@ -1,12 +1,9 @@
-import {DefaultIterator} from "./default.iterator";
+import { DefaultIterator } from './default.iterator';
 
 export class DefaultSkipIterator<T> extends DefaultIterator<T> {
     private skipped = false;
 
-    constructor(
-        iterator: Iterator<T>,
-        private readonly skip: number,
-    ) {
+    constructor(iterator: Iterator<T>, private readonly skip: number) {
         super(iterator);
     }
 

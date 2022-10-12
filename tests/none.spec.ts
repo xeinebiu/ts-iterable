@@ -1,24 +1,24 @@
-import {toExtendedIterable} from "../src";
+import { toExtendedIterable } from '../src';
 
-describe("none", () => {
+describe('none', () => {
     const createData = () => [1, 2, 3, 4, 5, 6];
 
-    it("should return true", () => {
+    it('should return true', () => {
         const data = createData();
 
         const expected = true;
-        const result = toExtendedIterable(data)
-            .none(x => x.toString() === "hello world");
+        const result = toExtendedIterable(data).none(
+            x => x.toString() === 'hello world',
+        );
 
         expect(result).toEqual(expected);
     });
 
-    it("should return false", () => {
+    it('should return false', () => {
         const data = createData();
 
         const expected = false;
-        const result = toExtendedIterable(data)
-            .none(x => x.toString() === "1");
+        const result = toExtendedIterable(data).none(x => x.toString() === '1');
 
         expect(result).toEqual(expected);
     });

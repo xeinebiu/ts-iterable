@@ -1,10 +1,7 @@
-import {DefaultIterator} from "./default.iterator";
+import { DefaultIterator } from './default.iterator';
 
 export class DefaultMapIterator<T, K> extends DefaultIterator<K> {
-    constructor(
-        iterator: Iterator<T>,
-        mapper: (element: T) => K
-    ) {
+    constructor(iterator: Iterator<T>, mapper: (element: T) => K) {
         super({
             next: () => {
                 const result = iterator.next();
@@ -14,9 +11,9 @@ export class DefaultMapIterator<T, K> extends DefaultIterator<K> {
 
                 return {
                     done: false,
-                    value: mapper(result.value)
-                }
-            }
+                    value: mapper(result.value),
+                };
+            },
         });
     }
 }

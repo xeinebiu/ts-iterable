@@ -1,9 +1,9 @@
-import {DefaultIterator} from "./default.iterator";
+import { DefaultIterator } from './default.iterator';
 
 export class DefaultWhereIterator<T> extends DefaultIterator<T> {
     constructor(
         iterator: Iterator<T>,
-        private readonly predicate: (element: T) => boolean
+        private readonly predicate: (element: T) => boolean,
     ) {
         super(iterator);
     }
@@ -20,7 +20,7 @@ export class DefaultWhereIterator<T> extends DefaultIterator<T> {
 
         return {
             done: true,
-            value: undefined
+            value: undefined,
         };
     }
 }

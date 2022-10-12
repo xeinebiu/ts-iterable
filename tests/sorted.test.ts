@@ -1,10 +1,9 @@
-import {toExtendedIterable} from "../src";
+import { toExtendedIterable } from '../src';
 
-describe("sorted", () => {
-
+describe('sorted', () => {
     const createData = () => [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-    it("should sort descending", () => {
+    it('should sort descending', () => {
         const data = createData();
 
         const expectedData = [...data].sort((a, b) => b - a);
@@ -15,5 +14,4 @@ describe("sorted", () => {
 
         expect(sortedData).toEqual(expectedData);
     });
-
 });

@@ -1,9 +1,9 @@
-import {DefaultIterator} from "./default.iterator";
+import { DefaultIterator } from './default.iterator';
 
 export class DefaultMapNotNullIterator<T, K> extends DefaultIterator<K> {
     constructor(
         iterator: Iterator<T>,
-        mapper: (element: T) => (K | null | undefined)
+        mapper: (element: T) => K | null | undefined,
     ) {
         super({
             next: () => {
@@ -11,12 +11,12 @@ export class DefaultMapNotNullIterator<T, K> extends DefaultIterator<K> {
 
                 while (current && !current.done) {
                     if (current.value !== null && current.value !== undefined) {
-                        let mappedValue = mapper(current.value);
+                        const mappedValue = mapper(current.value);
                         if (mappedValue) {
                             return {
                                 done: false,
-                                value: mappedValue
-                            }
+                                value: mappedValue,
+                            };
                         }
                     }
 
@@ -25,9 +25,9 @@ export class DefaultMapNotNullIterator<T, K> extends DefaultIterator<K> {
 
                 return {
                     done: true,
-                    value: undefined
-                }
-            }
+                    value: undefined,
+                };
+            },
         });
     }
 }
