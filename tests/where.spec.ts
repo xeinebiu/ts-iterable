@@ -1,14 +1,14 @@
-import { toExtendedIterable } from '../src';
+import { asIterable } from '../src';
 
-describe('where', () => {
+describe('filter', () => {
     const createData = () => [1, 2, 3, 4, 5, 6];
 
     it('should filter data', () => {
         const data = createData();
         const expected = [1, 2, 3];
 
-        const filtered = toExtendedIterable(data)
-            .where(x => x < 4)
+        const filtered = asIterable(data)
+            .filter(x => x < 4)
             .toList();
 
         expect(filtered).toEqual(expected);
@@ -20,8 +20,8 @@ describe('where', () => {
         const expectedCalledTimes = data.length;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
-            .where(x => {
+        asIterable(data)
+            .filter(() => {
                 calledTimes++;
                 return true;
             })
@@ -36,7 +36,7 @@ describe('where', () => {
         const expectedCalledTimes = 0;
         let calledTimes = 0;
 
-        toExtendedIterable(data).where(x => {
+        asIterable(data).filter(x => {
             calledTimes++;
             return true;
         });
@@ -51,9 +51,9 @@ describe('where', () => {
         const expectedCalledTimes = 1;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
-            .where(x => x === -1)
-            .where(() => {
+        asIterable(data)
+            .filter(x => x === -1)
+            .filter(() => {
                 calledTimes++;
                 return true;
             })
@@ -69,9 +69,9 @@ describe('where', () => {
         const expectedCalledTimes = take;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .take(take)
-            .where(() => {
+            .filter(() => {
                 calledTimes++;
                 return true;
             })
@@ -87,9 +87,9 @@ describe('where', () => {
         const expectedCalledTimes = data.length - skip;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .skip(skip)
-            .where(() => {
+            .filter(() => {
                 calledTimes++;
                 return true;
             })
@@ -104,8 +104,8 @@ describe('where', () => {
         const expectedCalledTimes = 1;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
-            .where(() => {
+        asIterable(data)
+            .filter(() => {
                 calledTimes++;
                 return true;
             })
@@ -120,8 +120,8 @@ describe('where', () => {
         const expectedCalledTimes = 1;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
-            .where(() => {
+        asIterable(data)
+            .filter(() => {
                 calledTimes++;
                 return true;
             })

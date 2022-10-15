@@ -1,6 +1,6 @@
-import { toExtendedIterable } from '../src';
+import { asIterable } from '../src';
 
-describe('grouped', () => {
+describe('group', () => {
     const createData = () => [
         -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
     ];
@@ -13,8 +13,8 @@ describe('grouped', () => {
             ['positive', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]],
         ];
 
-        const groupedData = toExtendedIterable(data)
-            .grouped(x => {
+        const groupedData = asIterable(data)
+            .group(x => {
                 if (x < 0) return 'negative';
                 return 'positive';
             })

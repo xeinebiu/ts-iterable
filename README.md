@@ -7,11 +7,17 @@ we use Iterables to stream over collections.
 
 Iterables are useful when you want to chain several operations on a collection such as
 
-- where
+- filter
+- filterNotNull
+- group
+- sort
 - map
 - mapNotNull
 - take
 - skip
+- every
+- none
+- some
 - etc ...
 
 For example, lets consider a case. We need to work with a collection to filter the numbers greater than ``20``, map to
@@ -32,8 +38,8 @@ const mappedValue = value.toString();
 
 ````typescript
 const data = [1, 10, 20, 30, 40, 50, ...];
-const mappedValue = toExtendedIterable(data)
-    .where(x => x > 20)
+const mappedValue = asIterable(data)
+    .filter(x => x > 20)
     .skip(2)
     .map(x => x.toString())
     .first()
@@ -79,31 +85,31 @@ npm i @xeinebiu/ts-iterable
 
 ````typescript
 const data = [1, 2, 3, 4, 5];
-const iterable = toExtendedIterable(data);
+const iterable = asIterable(data);
 ````
 
-### Where
+### Filter
 
 ````typescript
 // without the Iterable
 const filtered = data.filter(x => x < 4);
 
 // with iterable
-const filtered = toExtendedIterable(data)
-    .where(x => x < 4)
+const filtered = asIterable(data)
+    .filter(x => x < 4)
     .toList();
 
 // result [1, 2, 3]
 ````
 
-### Where Not Null
+### Filter Not Null
 
 Filter `undefined|null` values out
 
 ````typescript
 const data = [1, 2, null, 3, undefiend, 4];
-const filtered = toExtendedIterable(data)
-    .whereNotNull();
+const filtered = asIterable(data)
+    .filterNotNull();
 
 // result [1, 2, 3, 4]
 ````
@@ -117,31 +123,31 @@ Take specific amount of elements
 const taken = data.slice(0, 3);
 
 // with iterable
-const taken = toExtendedIterable(data)
+const taken = asIterable(data)
     .take(3)
     .toList();
 
 // result [1, 2, 3]
 ````
 
-### All
+### Every
 
 Return `true` if all elements match the predicate.
 
 ````typescript
-const result = toExtendedIterable(data)
-    .all(x => x.toString() !== "hello world");
+const result = asIterable(data)
+    .every(x => x.toString() !== "hello world");
 
 // result true
 ````
 
-### Any
+### Some
 
 Return `true` if any of the elements match the predicate
 
 ````typescript
-const result = toExtendedIterable(data)
-    .any(x => x.toString() !== "1");
+const result = asIterable(data)
+    .some(x => x.toString() !== "1");
 
 // result true
 ````
@@ -151,7 +157,7 @@ const result = toExtendedIterable(data)
 Return `true` if all the elements do not match the predicate
 
 ````typescript
-const result = toExtendedIterable(data)
+const result = asIterable(data)
     .none(x => x <= -1);
 
 // result true
@@ -162,8 +168,8 @@ const result = toExtendedIterable(data)
 Return the first element if available, otherwise throw ``NoElementError``
 
 ````typescript
-const result = toExtendedIterable(data)
-    .where(x => x > 4)
+const result = asIterable(data)
+    .filter(x => x > 4)
     .first();
 
 // result 5
@@ -174,8 +180,8 @@ const result = toExtendedIterable(data)
 Return the first element if available, otherwise null.
 
 ````typescript
-const result = toExtendedIterable(data)
-    .where(x => x > 100)
+const result = asIterable(data)
+    .filter(x => x > 100)
     .firstOrNull();
 
 // result null
@@ -186,8 +192,8 @@ const result = toExtendedIterable(data)
 Map the elements using a mapper
 
 ````typescript
-const result = toExtendedIterable(data)
-    .where(x => x < 3)
+const result = asIterable(data)
+    .filter(x => x < 3)
     .map(x => x.toString())
     .toList();
 
@@ -201,8 +207,8 @@ Map the elements using the mapper and avoid inserting `null|undefined` values in
 ````typescript
 const data = [1, null, 2, undefined, 3];
 
-const result = toExtendedIterable(data)
-    .where(x => x < 3)
+const result = asIterable(data)
+    .filter(x => x < 3)
     .mapNotNull(x => x?.toString())
     .toList();
 
@@ -214,7 +220,7 @@ const result = toExtendedIterable(data)
 Offset the elements cursor starting from index 0
 
 ````typescript
-const result = toExtendedIterable(data)
+const result = asIterable(data)
     .skip(1)
     .toList();
 
@@ -226,34 +232,34 @@ const result = toExtendedIterable(data)
 Take specific amount of elements
 
 ````typescript
-const result = toExtendedIterable(data)
+const result = asIterable(data)
     .take(2)
     .toList();
 
 // result ["1", "2"]
 ````
 
-### Sorted
+### Sort
 
 Sort all elements and return new [ExtendedIterable]
 
 ````typescript
-const sorted = toExtendedIterable(data)
-    .sorted((a, b) => b - a)
+const sorted = asIterable(data)
+    .sort((a, b) => b - a)
     .toList();
 
 // result [5, 4, 3, 2, 1]
 ````
 
-### Grouped
+### Group
 
 Group all elements and return new [ExtendedIterable]
 
 ````typescript
 const data = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const groupedData = toExtendedIterable(data)
-    .grouped(x => {
+const groupedData = asIterable(data)
+    .group(x => {
         if (x < 0) return "negative";
         return "positive";
     })
@@ -271,7 +277,7 @@ const groupedData = toExtendedIterable(data)
 Convert the Iterable to a collection.
 
 ````typescript
-const list = toExtendedIterable(data)
+const list = asIterable(data)
     .toList();
 
 // result [1, 2, 3, 4, 5]

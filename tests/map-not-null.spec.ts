@@ -1,4 +1,4 @@
-import { toExtendedIterable } from '../src';
+import { asIterable } from '../src';
 
 describe('mapNotNull', () => {
     const createData = () => [
@@ -18,7 +18,7 @@ describe('mapNotNull', () => {
         const data = createData();
         const expectedData = data.filter(x => !!x).map(x => x!.toString());
 
-        const mappedData = toExtendedIterable(data)
+        const mappedData = asIterable(data)
             .mapNotNull(x => x?.toString())
             .toList();
 
@@ -32,7 +32,7 @@ describe('mapNotNull', () => {
 
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .mapNotNull(x => x)
             .mapNotNull(x => {
                 calledTimes++;
@@ -49,7 +49,7 @@ describe('mapNotNull', () => {
         const expectedCalledTimes = 0;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .mapNotNull(x => x)
             .mapNotNull(x => {
                 calledTimes++;
@@ -66,7 +66,7 @@ describe('mapNotNull', () => {
         const expectedCalledTimes = data.filter(x => !x).length - take;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .take(take)
             .mapNotNull(x => x)
             .mapNotNull(x => {
@@ -85,7 +85,7 @@ describe('mapNotNull', () => {
         const expectedCalledTimes = data.slice(skip).filter(x => !!x).length;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .skip(skip)
             .mapNotNull(x => x)
             .mapNotNull(x => {
@@ -103,7 +103,7 @@ describe('mapNotNull', () => {
         const expectedCalledTimes = 1;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .mapNotNull(() => {
                 calledTimes++;
                 return true;
@@ -119,7 +119,7 @@ describe('mapNotNull', () => {
         const expectedCalledTimes = 1;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .mapNotNull(() => {
                 calledTimes++;
                 return true;

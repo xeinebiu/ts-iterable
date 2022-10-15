@@ -1,4 +1,4 @@
-import { toExtendedIterable } from '../src';
+import { asIterable } from '../src';
 
 describe('none', () => {
     const createData = () => [1, 2, 3, 4, 5, 6];
@@ -7,7 +7,7 @@ describe('none', () => {
         const data = createData();
 
         const expected = true;
-        const result = toExtendedIterable(data).none(
+        const result = asIterable(data).none(
             x => x.toString() === 'hello world',
         );
 
@@ -18,7 +18,7 @@ describe('none', () => {
         const data = createData();
 
         const expected = false;
-        const result = toExtendedIterable(data).none(x => x.toString() === '1');
+        const result = asIterable(data).none(x => x.toString() === '1');
 
         expect(result).toEqual(expected);
     });

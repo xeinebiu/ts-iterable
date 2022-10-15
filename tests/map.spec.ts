@@ -1,4 +1,4 @@
-import { toExtendedIterable } from '../src';
+import { asIterable } from '../src';
 
 describe('map', () => {
     const createData = () => [1, 2, 3, 4, 5, 6];
@@ -7,7 +7,7 @@ describe('map', () => {
         const data = createData();
         const expectedData = data.map(x => x.toString());
 
-        const mappedData = toExtendedIterable(data)
+        const mappedData = asIterable(data)
             .map(x => x.toString())
             .toList();
 
@@ -21,8 +21,8 @@ describe('map', () => {
 
         let calledTimes = 0;
 
-        toExtendedIterable(data)
-            .where(x => x > 2)
+        asIterable(data)
+            .filter(x => x > 2)
             .map(x => {
                 calledTimes++;
                 return x;
@@ -38,7 +38,7 @@ describe('map', () => {
         const expectedCalledTimes = 0;
         let calledTimes = 0;
 
-        toExtendedIterable(data).map(x => {
+        asIterable(data).map(x => {
             calledTimes++;
             return x;
         });
@@ -53,7 +53,7 @@ describe('map', () => {
         const expectedCalledTimes = take;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .take(take)
             .map(x => {
                 calledTimes++;
@@ -71,7 +71,7 @@ describe('map', () => {
         const expectedCalledTimes = data.length - skip;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .skip(skip)
             .map(x => {
                 calledTimes++;
@@ -88,7 +88,7 @@ describe('map', () => {
         const expectedCalledTimes = 1;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .map(() => {
                 calledTimes++;
                 return true;
@@ -104,7 +104,7 @@ describe('map', () => {
         const expectedCalledTimes = 1;
         let calledTimes = 0;
 
-        toExtendedIterable(data)
+        asIterable(data)
             .map(() => {
                 calledTimes++;
                 return true;
