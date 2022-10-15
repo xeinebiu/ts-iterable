@@ -8,7 +8,6 @@ import {
     DefaultTakeIterator,
     DefaultWhereIterator,
 } from './iterator';
-import { iterableToList } from './util';
 
 export class DefaultExtendedIterable<T> implements ExtendedIterable<T> {
     constructor(private readonly iterator: () => DefaultIterator<T>) {}
@@ -17,14 +16,14 @@ export class DefaultExtendedIterable<T> implements ExtendedIterable<T> {
         return this.iterator();
     }
 
-    public all(predicate: (element: T) => boolean): boolean {
+    public every(predicate: (element: T) => boolean): boolean {
         for (const element of this) {
             if (!predicate(element)) return false;
         }
         return true;
     }
 
-    public any(predicate: (element: T) => boolean): boolean {
+    public some(predicate: (element: T) => boolean): boolean {
         for (const element of this) {
             if (predicate(element)) return true;
         }
@@ -75,13 +74,13 @@ export class DefaultExtendedIterable<T> implements ExtendedIterable<T> {
         return new DefaultExtendedIterable(iterator);
     }
 
-    public where(predicate: (element: T) => boolean): ExtendedIterable<T> {
+    public filter(predicate: (element: T) => boolean): ExtendedIterable<T> {
         const iterator = () =>
             new DefaultWhereIterator(this.iterator(), predicate);
         return new DefaultExtendedIterable(iterator);
     }
 
-    public whereNotNull(): ExtendedIterable<NonNullable<T>> {
+    public filterNotNull(): ExtendedIterable<NonNullable<T>> {
         const iterator = () =>
             new DefaultMapNotNullIterator(this.iterator(), x => {
                 if (x) return x;
@@ -91,8 +90,8 @@ export class DefaultExtendedIterable<T> implements ExtendedIterable<T> {
         return new DefaultExtendedIterable(iterator);
     }
 
-    public sorted(sorter: (a: T, b: T) => number): ExtendedIterable<T> {
-        const list = iterableToList(this);
+    public sort(sorter: (a: T, b: T) => number): ExtendedIterable<T> {
+        const list = this.toList();
         list.sort(sorter);
 
         return new DefaultExtendedIterable(
@@ -100,8 +99,8 @@ export class DefaultExtendedIterable<T> implements ExtendedIterable<T> {
         );
     }
 
-    public grouped<K>(group: (a: T) => K): ExtendedIterable<[K, T[]]> {
-        const list = iterableToList(this);
+    public group<K>(group: (a: T) => K): ExtendedIterable<[K, T[]]> {
+        const list = this.toList();
 
         const map = new Map<K, T[]>();
         list.forEach(item => {
@@ -120,6 +119,10 @@ export class DefaultExtendedIterable<T> implements ExtendedIterable<T> {
     }
 
     public toList(): T[] {
-        return iterableToList(this);
+        const result: T[] = [];
+        for (const element of this) {
+            result.push(element);
+        }
+        return result;
     }
 }

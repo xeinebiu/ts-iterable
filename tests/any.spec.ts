@@ -1,13 +1,13 @@
-import { toExtendedIterable } from '../src';
+import { asIterable } from '../src';
 
-describe('any', () => {
+describe('some', () => {
     const createData = () => [1, 2, 3, 4, 5, 6];
 
     it('should return true', () => {
         const data = createData();
 
         const expected = true;
-        const result = toExtendedIterable(data).any(x => x.toString() !== '1');
+        const result = asIterable(data).some(x => x.toString() !== '1');
 
         expect(result).toEqual(expected);
     });
@@ -16,7 +16,7 @@ describe('any', () => {
         const data = createData();
 
         const expected = false;
-        const result = toExtendedIterable(data).any(
+        const result = asIterable(data).some(
             x => x.toString() === 'hello world',
         );
 

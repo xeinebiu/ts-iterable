@@ -2,12 +2,12 @@ export interface ExtendedIterable<T> extends Iterable<T> {
     /**
      * Return `true` if all elements match the [predicate]
      */
-    all(predicate: (element: T) => boolean): boolean;
+    every(predicate: (element: T) => boolean): boolean;
 
     /**
      * Return `true` if any of the elements match the [predicate]
      */
-    any(predicate: (element: T) => boolean): boolean;
+    some(predicate: (element: T) => boolean): boolean;
 
     /**
      * Return the first element if available, otherwise throw [NoElementError]
@@ -49,22 +49,22 @@ export interface ExtendedIterable<T> extends Iterable<T> {
     /**
      * Filter the elements which match the [predicate]
      */
-    where(predicate: (element: T) => boolean): ExtendedIterable<T>;
+    filter(predicate: (element: T) => boolean): ExtendedIterable<T>;
 
     /**
      * Filter `undefined|null` values out
      */
-    whereNotNull(): ExtendedIterable<NonNullable<T>>;
+    filterNotNull(): ExtendedIterable<NonNullable<T>>;
 
     /**
      * Sort all elements and return new [ExtendedIterable]
      */
-    sorted(sorter: (a: T, b: T) => number): ExtendedIterable<T>;
+    sort(sorter: (a: T, b: T) => number): ExtendedIterable<T>;
 
     /**
      * Group all elements and return new [ExtendedIterable]
      */
-    grouped<K>(group: (a: T) => K): ExtendedIterable<[K, T[]]>;
+    group<K>(group: (a: T) => K): ExtendedIterable<[K, T[]]>;
 
     /**
      * Convert the [IEnumerable] to [Array]

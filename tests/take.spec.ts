@@ -1,4 +1,4 @@
-import { toExtendedIterable } from '../src';
+import { asIterable } from '../src';
 
 describe('take', () => {
     const createData = () => [1, 2, 3, 4, 5, 6];
@@ -8,7 +8,7 @@ describe('take', () => {
         const take = 3;
         const expected = data.slice(0, take);
 
-        const taken = toExtendedIterable(data).take(take).toList();
+        const taken = asIterable(data).take(take).toList();
 
         expect(taken).toEqual(expected);
     });
